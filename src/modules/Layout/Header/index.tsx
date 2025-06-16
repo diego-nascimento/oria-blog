@@ -1,5 +1,15 @@
-import { AppBar, Button, IconButton, Stack, Toolbar } from '@mui/material';
-import { Menu } from '@mui/icons-material';
+import {
+  AppBar,
+  Box,
+  Button,
+  Divider,
+  List,
+  ListItemButton,
+  ListItemText,
+  Stack,
+  Toolbar,
+} from '@mui/material';
+
 import { SearchTextField } from '../SearchTextField';
 
 import { categoryTypes } from '@/modules/types/category';
@@ -7,6 +17,9 @@ import React from 'react';
 import { Category } from '../Category';
 import Link from 'next/link';
 import Image from 'next/image';
+import { MobileDrawer } from './components/MobileDrawer';
+import { ListItemContainer } from './components/ListItemContainer';
+import { MenuButton } from './components/MenuButton';
 
 const items = [
   {
@@ -36,6 +49,31 @@ export const Header = async () => {
 
   return (
     <React.Fragment>
+      <MobileDrawer>
+        <Box
+          sx={{
+            width: '100%',
+          }}
+          role="presentation"
+        >
+          <List>
+            {items.map((item) => (
+              <ListItemContainer key={item.url} url={item.url}>
+                <ListItemButton>
+                  <ListItemText
+                    primaryTypographyProps={{
+                      fontWeight: 600,
+                      color: 'secondary.main',
+                    }}
+                    primary={item.text}
+                  />
+                </ListItemButton>
+              </ListItemContainer>
+            ))}
+          </List>
+          <Divider />
+        </Box>
+      </MobileDrawer>
       <AppBar position="static">
         <Toolbar>
           <Stack
@@ -77,13 +115,7 @@ export const Header = async () => {
                   }}
                 >
                   <Stack>
-                    <IconButton>
-                      <Menu
-                        sx={{
-                          color: 'secondary.contrastText',
-                        }}
-                      />
-                    </IconButton>
+                    <MenuButton />
                   </Stack>
                 </Stack>
                 <Stack
