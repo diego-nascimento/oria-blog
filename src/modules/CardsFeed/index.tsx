@@ -85,12 +85,13 @@ export const CardsFeed = ({ articles, showLess }: Props) => {
                         <Image
                           src={
                             process.env.NEXT_PUBLIC_CMS_ENDPOINT +
-                            article.imagem.url
+                            article.imagem.formats.medium.url
                           }
                           fill
                           id={'card-image'}
                           alt={article.titulo}
                           style={{ objectFit: 'cover' }}
+                          priority={index < 3 ? true : false}
                         />
                         <Stack
                           position={'absolute'}

@@ -7,7 +7,23 @@ export type articleTypes = {
   titulo: string;
   descricao: string;
   categorias: categoryTypes[];
-  imagem: { url: string };
+  imagem: {
+    formats: {
+      medium: {
+        url: string;
+      };
+      small: {
+        url: string;
+      };
+      large: {
+        url: string;
+      };
+      thumbnail: {
+        url: string;
+      };
+    };
+    url: string;
+  };
   updatedAt: string;
   conteudo: BlocksContent;
   slug: string;

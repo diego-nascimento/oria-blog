@@ -1,4 +1,5 @@
 import { CardsFeed } from '@/modules/CardsFeed';
+import { categoryTypes } from '@/modules/types/category';
 import { Box, Chip, Divider, Stack, Typography } from '@mui/material';
 
 import { redirect } from 'next/navigation';
@@ -27,7 +28,7 @@ export default async function Categoria({ params }: Props) {
 
   if (!data.ok) redirect('/404');
 
-  const response = await data.json();
+  const response = (await data.json()) as { data: categoryTypes[] };
   const category = response.data[0] ?? [];
 
   return (
@@ -70,7 +71,10 @@ export default async function Categoria({ params }: Props) {
           />
           <Divider sx={{ borderBottomWidth: 4, bgcolor: 'primary.main' }} />
         </Box>
-        <CardsFeed articles={category.artigos ?? []} showLess={true} />
+        <CardsFeed
+          articles={category.artigos.reverse() ?? []}
+          showLess={true}
+        />
       </Stack>
     </Stack>
   );

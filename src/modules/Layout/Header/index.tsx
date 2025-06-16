@@ -57,7 +57,7 @@ export const Header = async () => {
                 alignItems={'center'}
                 justifyContent={'space-between'}
               >
-                <Link href={'/'}>
+                <Link href={'http://localhost:3001'}>
                   <Stack>
                     <Image
                       src={'/logo.png'}
@@ -122,7 +122,12 @@ export const Header = async () => {
         </Toolbar>
       </AppBar>
       <Stack alignItems={'center'} width={'100%'} paddingY={2} paddingX={2}>
-        <Stack maxWidth={940} width={'100%'} direction={'row'}>
+        <Stack
+          maxWidth={940}
+          width={'100%'}
+          direction={{ xs: 'column', md: 'row' }}
+          gap={2}
+        >
           <Stack width={'100%'} direction={'row'} gap={3} alignItems={'center'}>
             <Category text="Todas" link="/" />
             {categorias.data.map((category) => {

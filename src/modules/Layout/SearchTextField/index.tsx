@@ -44,7 +44,7 @@ const Search = () => {
         sx={{
           display: 'flex',
           alignItems: 'flex-end',
-          width: expanded ? 300 : 40,
+          width: expanded ? { xs: '100%', md: 300 } : 40,
           transition: 'width 0.3s ease-in-out',
           border: expanded ? '1px solid #ccc' : 'none',
           borderRadius: 1,
@@ -52,8 +52,19 @@ const Search = () => {
           backgroundColor: expanded ? '#f1f1f1' : 'transparent',
         }}
       >
-        <form onSubmit={handleSearch}>
-          <Stack direction="row" width={'100%'}>
+        <Stack
+          width={{
+            xs: '100%',
+            md: 300,
+          }}
+          component={'form'}
+          onSubmit={handleSearch}
+        >
+          <Stack
+            direction="row"
+            width={'100%'}
+            justifyContent={'space-between'}
+          >
             {expanded && (
               <InputBase
                 placeholder="Busca..."
@@ -72,7 +83,7 @@ const Search = () => {
               <SearchIcon />
             </IconButton>
           </Stack>
-        </form>
+        </Stack>
       </Box>
     </ClickAwayListener>
   );

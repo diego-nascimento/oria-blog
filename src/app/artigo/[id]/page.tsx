@@ -63,7 +63,10 @@ export default async function Artigos({ params }: Props) {
       </Typography>
       <Stack position={'relative'} width={'100%'} marginTop={2}>
         <Image
-          src={process.env.NEXT_PUBLIC_CMS_ENDPOINT + article.imagem.url}
+          src={
+            process.env.NEXT_PUBLIC_CMS_ENDPOINT +
+            article.imagem.formats.large.url
+          }
           alt={article.titulo}
           layout="responsive"
           width={940} // use actual image width
