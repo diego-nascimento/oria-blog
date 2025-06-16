@@ -130,7 +130,7 @@ export const Header = async () => {
         >
           <Stack width={'100%'} direction={'row'} gap={3} alignItems={'center'}>
             <Category text="Todas" link="/" />
-            {categorias.data.map((category) => {
+            {categorias.data?.map((category) => {
               return (
                 <Category
                   text={category.titulo}

@@ -29,7 +29,7 @@ export default async function Home() {
 
       <Grid container marginTop={2} spacing={2}>
         <Grid size={{ xs: 12 }}>
-          <CardsFeed articles={data.data} showLess={true} />
+          <CardsFeed articles={data.data ?? []} showLess={true} />
         </Grid>
       </Grid>
     </Stack>

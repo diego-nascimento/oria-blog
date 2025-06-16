@@ -32,10 +32,12 @@ export default async function Artigos({ params }: Props) {
       `/api/artigos?filters[slug][$eq]=${id}&populate=*`,
   );
 
-  if (!data.ok) redirect('/404');
+  if (!data.ok) return redirect('/404');
 
   const response = (await data.json()) as { data: articleTypes[] };
   const article = response.data[0];
+  if (!article) return redirect('/404');
+
   return (
     <Stack>
       <Typography

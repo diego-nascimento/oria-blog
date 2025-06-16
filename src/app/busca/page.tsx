@@ -43,7 +43,7 @@ export default async function Busca({ searchParams }: Props) {
       </Box>
       <Grid container marginTop={2} spacing={2}>
         <Grid size={{ xs: 12 }}>
-          <CardsFeed articles={filteredArticles} showLess={true} />
+          <CardsFeed articles={filteredArticles ?? []} showLess={true} />
         </Grid>
       </Grid>
     </Stack>
