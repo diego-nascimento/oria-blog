@@ -2,9 +2,10 @@ import { Box, Chip, Divider, Grid, Stack } from '@mui/material';
 
 import { CardsFeed } from '@/modules/CardsFeed';
 import { articleTypes } from '@/modules/types/article';
+import { Metadata } from 'next';
 
-export default async function Home() {
-  const response = await fetch(
+const getArticles = async () => {
+  return await fetch(
     process.env.NEXT_PUBLIC_CMS_ENDPOINT +
       '/api/artigos?populate[categorias][populate]=*&populate[imagem][populate]=*',
     {
@@ -14,6 +15,16 @@ export default async function Home() {
       },
     },
   );
+};
+
+export const metadata: Metadata = {
+  title: 'Blog - Psicóloga Ariane Miranda  ',
+  description: 'Blog da psicologa Ariane Miranda',
+  icons: '/favicon.ico',
+};
+
+export default async function Home() {
+  const response = await getArticles();
 
   const data = (await response.json()) as { data: articleTypes[] };
 

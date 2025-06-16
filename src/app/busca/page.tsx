@@ -11,9 +11,8 @@ interface Props {
   searchParams: Promise<{ q: string }>;
 }
 
-export default async function Busca({ searchParams }: Props) {
-  const { q } = await searchParams;
-  const response = await fetch(
+const getArticles = async () => {
+  return await fetch(
     process.env.NEXT_PUBLIC_CMS_ENDPOINT +
       '/api/artigos?populate[categorias][populate]=*&populate[imagem][populate]=*',
     {
@@ -23,6 +22,19 @@ export default async function Busca({ searchParams }: Props) {
       },
     },
   );
+};
+
+export async function generateMetadata({ searchParams }: Props) {
+  const { q } = await searchParams;
+
+  return {
+    title: q + ' | Blog - Psicóloga Ariane Miranda',
+  };
+}
+
+export default async function Busca({ searchParams }: Props) {
+  const { q } = await searchParams;
+  const response = await getArticles();
 
   const data = (await response.json()) as dataTypes;
 
@@ -44,7 +56,7 @@ export default async function Busca({ searchParams }: Props) {
       </Box>
       <Grid container marginTop={2} spacing={2}>
         <Grid size={{ xs: 12 }}>
-          <CardsFeed articles={filteredArticles ?? []} showLess={true} />
+          <CardsFeed articles={filteredArticles} showLess={true} />
         </Grid>
       </Grid>
     </Stack>

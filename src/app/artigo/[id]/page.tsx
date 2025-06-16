@@ -10,6 +10,14 @@ import Image from 'next/image';
 
 import { redirect } from 'next/navigation';
 
+const getArticles = async ({ params }: Props) => {
+  const { id } = await params;
+  return await fetch(
+    process.env.NEXT_PUBLIC_CMS_ENDPOINT +
+      `/api/artigos?filters[slug][$eq]=${id}&populate=*`,
+  );
+};
+
 export async function generateStaticParams() {
   const artigos = await fetch(
     process.env.NEXT_PUBLIC_CMS_ENDPOINT + '/api/artigos',
@@ -20,19 +28,24 @@ export async function generateStaticParams() {
   }));
 }
 
+export async function generateMetadata({ params }: Props) {
+  const data = await getArticles({ params });
+  const articles = (await data.json()) as { data: articleTypes[] };
+  const article = articles.data[0];
+  return {
+    title: article.titulo + ' | Blog - Psicóloga Ariane Miranda',
+    description: article.descricao,
+  };
+}
+
 interface Props {
   params: Promise<{ id: string }>;
 }
 
 export default async function Artigos({ params }: Props) {
-  const { id } = await params;
+  const data = await getArticles({ params });
 
-  const data = await fetch(
-    process.env.NEXT_PUBLIC_CMS_ENDPOINT +
-      `/api/artigos?filters[slug][$eq]=${id}&populate=*`,
-  );
-
-  if (!data.ok) return redirect('/404');
+  if (!data.ok) redirect('/404');
 
   const response = (await data.json()) as { data: articleTypes[] };
   const article = response.data[0];
@@ -65,7 +78,10 @@ export default async function Artigos({ params }: Props) {
       </Typography>
       <Stack position={'relative'} width={'100%'} marginTop={2}>
         <Image
-          src={article.imagem.formats.large.url}
+          src={
+            process.env.NEXT_PUBLIC_CMS_ENDPOINT +
+            article.imagem.formats.large.url
+          }
           alt={article.titulo}
           layout="responsive"
           width={940} // use actual image width
