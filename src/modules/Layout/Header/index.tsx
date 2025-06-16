@@ -11,12 +11,12 @@ import Image from 'next/image';
 const items = [
   {
     text: 'Mães',
-    url: 'http://localhost:3001',
+    url: process.env.NEXT_PUBLIC_MAIN_WEBSITE!,
   },
 
   {
     text: 'Blog',
-    url: 'http://localhost:3000',
+    url: '/',
   },
 ];
 
@@ -57,7 +57,7 @@ export const Header = async () => {
                 alignItems={'center'}
                 justifyContent={'space-between'}
               >
-                <Link href={'http://localhost:3001'}>
+                <Link href={process.env.NEXT_PUBLIC_MAIN_WEBSITE!}>
                   <Stack>
                     <Image
                       src={'/logo.png'}
