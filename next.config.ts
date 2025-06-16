@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       new URL('http://localhost:1337/**'),
-      new URL('https://active-dream-265aa95c2a.strapiapp.com/**'),
+      new URL('https://active-dream-265aa95c2a.media.strapiapp.com/**'),
     ],
   },
 };

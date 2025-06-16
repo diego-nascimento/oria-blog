@@ -83,10 +83,7 @@ export const CardsFeed = ({ articles, showLess }: Props) => {
                         position={'relative'}
                       >
                         <Image
-                          src={
-                            process.env.NEXT_PUBLIC_CMS_ENDPOINT +
-                            article.imagem.formats.medium.url
-                          }
+                          src={article.imagem.formats.medium.url}
                           fill
                           id={'card-image'}
                           alt={article.titulo}
