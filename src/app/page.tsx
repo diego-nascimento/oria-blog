@@ -5,7 +5,8 @@ import { articleTypes } from '@/modules/types/article';
 
 export default async function Home() {
   const response = await fetch(
-    'http://localhost:1337/api/artigos?populate[categorias][populate]=*&populate[imagem][populate]=*',
+    process.env.NEXT_PUBLIC_CMS_ENDPOINT +
+      '/api/artigos?populate[categorias][populate]=*&populate[imagem][populate]=*',
     {
       cache: 'force-cache',
       next: {

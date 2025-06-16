@@ -14,7 +14,8 @@ interface Props {
 export default async function Busca({ searchParams }: Props) {
   const { q } = await searchParams;
   const response = await fetch(
-    'http://localhost:1337/api/artigos?populate[categorias][populate]=*&populate[imagem][populate]=*',
+    process.env.NEXT_PUBLIC_CMS_ENDPOINT +
+      '/api/artigos?populate[categorias][populate]=*&populate[imagem][populate]=*',
     {
       cache: 'force-cache',
       next: {
